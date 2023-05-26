@@ -11,7 +11,7 @@ import java.security.MessageDigest
 fun calculatedMd5(text: String): String {
     val messageDigest = getMd5Digest(text)
     val md5 = BigInteger(1, messageDigest).toString(16)
-    return "0" * (32 - md5.length) + md5 // 3
+    return "0" * (32 - md5.length) + md5 // 3.若小于 32 位 ，则使用 时间扩展操作符，并利用 0 值填充
 }
 
 private fun getMd5Digest(str: String): ByteArray = MessageDigest.getInstance("MD5").digest(str.toByteArray())
