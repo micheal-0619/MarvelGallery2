@@ -8,12 +8,14 @@ import com.axb.marvelgallery2.R
 import com.axb.marvelgallery2.data.network.MarvelRepository
 import com.axb.marvelgallery2.model.MarvelCharacter
 import com.axb.marvelgallery2.presenter.MainPresenter
+import com.axb.marvelgallery2.view.character.CharacterProfileActivity
+import com.axb.marvelgallery2.view.common.BaseActivityWithPresenter
 import com.axb.marvelgallery2.view.common.addOnTextChangedListener
 import com.axb.marvelgallery2.view.common.bindToSwipeRefresh
 import com.axb.marvelgallery2.view.common.toast
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : BaseActivityWithPresenter(), MainView {
 
     override var refresh by bindToSwipeRefresh(R.id.swipeRefreshView) // 2
     override val presenter by lazy { MainPresenter(this, MarvelRepository.get()) } // 3
@@ -33,13 +35,21 @@ class MainActivity : AppCompatActivity(), MainView {
         presenter.onViewCreated() // 4
 
     }
+
     override fun show(items: List<MarvelCharacter>) {
-        val categoryItemAdapters = items.map(::CharacterItemAdapter)
+        val categoryItemAdapters = items.map(this::createCategoryItemAdapter)
         recyclerView.adapter = MainListAdapter(categoryItemAdapters)
     }
 
     override fun showError(error: Throwable) {
         toast("Error: ${error.message}") // 2
         error.printStackTrace()
+    }
+
+    private fun createCategoryItemAdapter(character: MarvelCharacter) =
+        CharacterItemAdapter(character, { showHeroProfile(character) })
+
+    private fun showHeroProfile(character: MarvelCharacter) {
+        CharacterProfileActivity.start(this, character)
     }
 }

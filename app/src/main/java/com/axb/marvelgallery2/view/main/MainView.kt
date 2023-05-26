@@ -7,5 +7,5 @@ interface MainView {
     var refresh: Boolean
     fun show(items: List<MarvelCharacter>)
     fun showError(error: Throwable)
-    val presenter: MainPresenter
+    //val presenter: MainPresenter
 }
