@@ -11,6 +11,6 @@ class SquareFrameLayout @JvmOverloads constructor( //当使用 JvmOverloads 注�
 ) :
     FrameLayout(context, attrs, defStyleAttr) {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec) //强制元素的高度与宽度相同
+        super.onMeasure(widthMeasureSpec, widthMeasureSpec) //强制元素的高度与宽度相同
     }
 }

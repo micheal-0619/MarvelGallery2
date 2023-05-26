@@ -1,5 +1,7 @@
 package com.axb.marvelgallery2.view.main
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -20,6 +22,8 @@ class CharacterItemAdapter(
     override fun ViewHolder.onBindViewHolder() {
         textView.text = character.name
         imageView.loadImage(character.imageUrl)
+
+        Log.d(TAG, "onBindViewHolder: character.imageUrl = " + character.imageUrl)
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
